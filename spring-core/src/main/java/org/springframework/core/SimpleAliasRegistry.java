@@ -38,6 +38,12 @@ import org.springframework.util.StringValueResolver;
  * @author Juergen Hoeller
  * @since 2.5.2
  */
+
+/**
+ * @author pmz
+ * @date 2021/5/7 12:18
+ * @description //TODO 主要使用map作为alias的缓存并且对接口AliasRegistry进行实现
+ */
 public class SimpleAliasRegistry implements AliasRegistry {
 
 	/** Logger available to subclasses */

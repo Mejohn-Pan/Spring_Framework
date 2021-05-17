@@ -82,8 +82,14 @@ import org.springframework.util.xml.DomUtils;
  * @see ParserContext
  * @see DefaultBeanDefinitionDocumentReader
  */
+/**
+ * @author pmz
+ * @date 2021/5/10 10:55
+ * @description //TODO 一个委托类，用来辅助解析bean的
+ */
 public class BeanDefinitionParserDelegate {
 
+	/*一开始就声明了各种常量字符串，都是在Spring的配置文件中常见的属性值。*/
 	public static final String BEANS_NAMESPACE_URI = "http://www.springframework.org/schema/beans";
 
 	public static final String MULTI_VALUE_ATTRIBUTE_DELIMITERS = ",; ";
@@ -317,6 +323,15 @@ public class BeanDefinitionParserDelegate {
 	 * @param defaults the defaults to populate
 	 * @param parentDefaults the parent BeanDefinitionParserDelegate (if any) defaults to fall back to
 	 * @param root the root element of the current bean definition document (or nested beans element)
+	 */
+	/**
+	 * @author pmz
+	 * @date 2021/5/10 11:00
+	 * @param defaults
+	 * @param parentDefaults
+	 * @param root
+	 * @return void
+	 * @description //TODO 里面存了一个bean必须有的属性，没有就采用默认值。
 	 */
 	protected void populateDefaults(DocumentDefaultsDefinition defaults, @Nullable DocumentDefaultsDefinition parentDefaults, Element root) {
 		String lazyInit = root.getAttribute(DEFAULT_LAZY_INIT_ATTRIBUTE);
@@ -1379,6 +1394,7 @@ public class BeanDefinitionParserDelegate {
 	 */
 	@Nullable
 	public BeanDefinition parseCustomElement(Element ele, @Nullable BeanDefinition containingBd) {
+		//获取命名空间
 		String namespaceUri = getNamespaceURI(ele);
 		if (namespaceUri == null) {
 			return null;
@@ -1492,6 +1508,7 @@ public class BeanDefinitionParserDelegate {
 	 */
 	@Nullable
 	public String getNamespaceURI(Node node) {
+		//自定义命名空间解析 获取命名空间
 		return node.getNamespaceURI();
 	}
 
@@ -1523,6 +1540,8 @@ public class BeanDefinitionParserDelegate {
 	 * Determine whether the given URI indicates the default namespace.
 	 */
 	public boolean isDefaultNamespace(@Nullable String namespaceUri) {
+		//通过判断默认名称(http://www.springframework.org/schema/beans) 与 获取来的命名空间名对比 判断是不是默认配置
+		//haslength() 检查不为null 长度不为0
 		return (!StringUtils.hasLength(namespaceUri) || BEANS_NAMESPACE_URI.equals(namespaceUri));
 	}
 
@@ -1530,6 +1549,7 @@ public class BeanDefinitionParserDelegate {
 	 * Determine whether the given node indicates the default namespace.
 	 */
 	public boolean isDefaultNamespace(Node node) {
+		//判断是自定义命名空间还是默认命名空间
 		return isDefaultNamespace(getNamespaceURI(node));
 	}
 

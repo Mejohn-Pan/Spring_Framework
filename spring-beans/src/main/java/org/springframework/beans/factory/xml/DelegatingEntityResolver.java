@@ -77,6 +77,17 @@ public class DelegatingEntityResolver implements EntityResolver {
 	}
 
 
+	/**
+	 * @author pmz
+	 * @date 2021/5/17 16:08
+	 * @param publicId	解析XSD的配置文件：null
+	 *                  解析DTD的配置文件：-//SPRING//DTD BEAN 2.0//EN
+	 *
+	 * @param systemId 	解析XSD的配置文件：https://www.springframework.org/schema/beans/spring-beans.xsd
+	 *                  解析DTD的配置文件：https://www.springframework.org/dtd/spring-beans-2.0.dtd
+	 * @return org.xml.sax.InputSource
+	 * @description //TODO
+	 */
 	@Override
 	@Nullable
 	public InputSource resolveEntity(@Nullable String publicId, @Nullable String systemId)
@@ -84,9 +95,11 @@ public class DelegatingEntityResolver implements EntityResolver {
 
 		if (systemId != null) {
 			if (systemId.endsWith(DTD_SUFFIX)) {
+				//如果是dtd从这里解析
 				return this.dtdResolver.resolveEntity(publicId, systemId);
 			}
 			else if (systemId.endsWith(XSD_SUFFIX)) {
+				//通过调用META-INF/Spring.schemas解析
 				return this.schemaResolver.resolveEntity(publicId, systemId);
 			}
 		}

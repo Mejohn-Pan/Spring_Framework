@@ -51,6 +51,14 @@ public class BeansDtdResolver implements EntityResolver {
 	private static final Log logger = LogFactory.getLog(BeansDtdResolver.class);
 
 
+	/**
+	 * @author pmz
+	 * @date 2021/5/17 16:26
+	 * @param publicId
+	 * @param systemId
+	 * @return org.xml.sax.InputSource
+	 * @description //TODO org.xml.sax.EntityResolver.resolveEntity 实现类
+	 */
 	@Override
 	@Nullable
 	public InputSource resolveEntity(@Nullable String publicId, @Nullable String systemId) throws IOException {
@@ -59,11 +67,13 @@ public class BeansDtdResolver implements EntityResolver {
 					"] and system ID [" + systemId + "]");
 		}
 
+		//DTD_EXTENSION = ".dtd"
 		if (systemId != null && systemId.endsWith(DTD_EXTENSION)) {
 			int lastPathSeparator = systemId.lastIndexOf('/');
 			int dtdNameStart = systemId.indexOf(DTD_NAME, lastPathSeparator);
 			if (dtdNameStart != -1) {
 				String dtdFile = DTD_NAME + DTD_EXTENSION;
+				//DTD_NAME = {"Spirng-bean-2.0","Spring-beans"}
 				if (logger.isTraceEnabled()) {
 					logger.trace("Trying to locate [" + dtdFile + "] in Spring jar on classpath");
 				}

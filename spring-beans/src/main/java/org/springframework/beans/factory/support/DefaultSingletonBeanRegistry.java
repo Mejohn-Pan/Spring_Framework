@@ -68,6 +68,11 @@ import org.springframework.util.StringUtils;
  * @see org.springframework.beans.factory.DisposableBean
  * @see org.springframework.beans.factory.config.ConfigurableBeanFactory
  */
+/**
+ * @author pmz
+ * @date 2021/5/7 12:36
+ * @description //TODO SingletonBeanRegistry各类函数的实现
+ */
 public class DefaultSingletonBeanRegistry extends SimpleAliasRegistry implements SingletonBeanRegistry {
 
 	/** Cache of singleton objects: bean name --> bean instance */

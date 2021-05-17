@@ -111,6 +111,11 @@ import org.springframework.util.StringUtils;
  * @see #resolveDependency
  */
 @SuppressWarnings("serial")
+/**
+ * @author pmz
+ * @date 2021/5/7 12:51
+ * @description //TODO 综合功能，主要是对bean注册后的处理。
+ */
 public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFactory
 		implements ConfigurableListableBeanFactory, BeanDefinitionRegistry, Serializable {
 
